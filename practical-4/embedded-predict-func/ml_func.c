@@ -59,9 +59,14 @@ float logistic_regression(float *features, float *thetas, int n_params)
  */
 int simple_tree(float *features, int n_params)
 {
-    if (n_params != 2) {
-        fprintf(stderr, "simple_tree: bad argument, n_params must be equal 2\n");
+    int res;
+
+    if (n_params < 1) {
+        fprintf(stderr, "simple_tree: bad argument\n");
         exit(1);
     }
-    return *features++ > 0 && *features > 0;
+    res = 1;
+    while (n_params-- > 0)
+        res = res && *features++ > 0;
+    return res;
 }
