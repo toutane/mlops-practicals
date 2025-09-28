@@ -23,7 +23,7 @@ def generate_main_fun(X: list[float], filename: str) -> None:
         f.write("\nint main(void)\n")
         f.write("{\n")
         f.write(f"\tfloat X[] = {{ {', '.join(str(x) for x in X)} }};\n")
-        f.write(f'\tprintf("res is: %f\\n", simple_tree(X, {n_features}));\n')
+        f.write(f'\tprintf("res is: %d\\n", simple_tree(X, {n_features}));\n')
         f.write(f"\treturn 0;\n")
         f.write("}\n")
 
