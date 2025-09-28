@@ -47,3 +47,21 @@ float logistic_regression(float *features, float *thetas, int n_params)
         x += *features++ * *thetas++;
     return sigmoid(x);
 }
+
+/* simple_tree: implement the following decision tree:
+ *              if X_1 > 0
+ *                  return 0
+ *              else
+ *                  if X_2 > 0
+ *                      return 0
+ *                  else
+ *                      return 1
+ */
+int simple_tree(float *features, int n_params)
+{
+    if (n_params != 2) {
+        fprintf(stderr, "simple_tree: bad argument, n_params must be equal 2\n");
+        exit(1);
+    }
+    return *features++ > 0 && *features > 0;
+}

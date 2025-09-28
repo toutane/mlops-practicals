@@ -36,8 +36,16 @@ void test_logistic_regression(void)
     float y_pred;
 
     y_pred = logistic_regression(features, thetas, NB_PARAMS);
-    printf("y_pred is: %f\n", y_pred);
+    /* printf("y_pred is: %f\n", y_pred); */
     assert(y_pred == 0.5);
+}
+
+void test_simple_tree(void)
+{
+    float features[] = {1, 1};
+    assert(simple_tree(features, 2) == 1);
+    features[0] = -1;
+    assert(simple_tree(features, 2) == 0);
 }
 
 int main(void)
@@ -46,5 +54,6 @@ int main(void)
     test_exp_approx();
     test_sigmoid();
     test_logistic_regression();
+    test_simple_tree();
     return 0;
 }
