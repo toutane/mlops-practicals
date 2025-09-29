@@ -2,6 +2,7 @@ import json
 import signal
 import types
 
+import psycopg
 from kafka import KafkaConsumer
 
 
@@ -19,6 +20,19 @@ if __name__ == "__main__":
     if not consumer:
         exit(1)
     signal.signal(signal.SIGINT, lambda sig, _: signal_handler(sig, None, consumer))
-    for msg in consumer:
-        print(f"received: {msg.value}")
+    with psycopg.connect(
+        "host=localhost port=5432 dbname=postgres user=postgres password=mysecretpassword"
+    ) as conn:
+        for msg in consumer:
+            prediction = msg.value
+            print(f"received: {prediction}")
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO predictions (X, y_pred) VALUES (%s, %s)",
+                    (
+                        prediction["X"],
+                        prediction["y_pred"],
+                    ),
+                )
+                conn.commit()
     exit(0)

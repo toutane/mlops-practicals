@@ -7,5 +7,5 @@ if __name__ == "__main__":
         bootstrap_servers=["localhost:9092"],
         value_serializer=lambda m: json.dumps(m).encode(),
     )
-    producer.send("my-topic", {"X": [1, 2, 3]})
+    producer.send("my-topic", {"X": [80, 2, 1]})
     producer.flush()

@@ -53,9 +53,11 @@ if __name__ == "__main__":
         signal.SIGINT, lambda sig, _: signal_handler(sig, None, consumer, producer)
     )
     for msg in consumer:
-        X = np.array(msg.value["X"]).reshape(1, -1)
-        X_df = pd.DataFrame(X, columns=["size", "nb_rooms", "garden"])
+        X_arr = msg.value["X"]
+        X_nparr = np.array(X_arr).reshape(1, -1)
+        X_df = pd.DataFrame(X_nparr, columns=["size", "nb_rooms", "garden"])
         y_pred = model.predict(X_df)[0]
-        # print(f"y_pred is: {y_pred:.2f}")
-        producer.send("prediction_charles-antoine", y_pred)
+        print(f"Prediction of {X_arr} is: {y_pred:.2f}")
+        prediction = {"X": X_arr, "y_pred": y_pred}
+        producer.send("prediction_charles-antoine", prediction)
     exit(0)
