@@ -1,0 +1,14 @@
+[workspace]
+authors = ["Charles-Antoine Leger <ca@leger.email>"]
+channels = ["conda-forge"]
+name = "practical-3"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+kafka-python = ">=2.2.15,<3"
+joblib = ">=1.5.2,<2"
+scikit-learn = "==1.5.2"
+pandas = ">=2.3.2,<3"
